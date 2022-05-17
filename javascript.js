@@ -1,7 +1,7 @@
     let playerScore = 0;
     let computerScore = 0;
     
-    function computerPlay() {
+function computerPlay() {
     const compMove = ['rock', 'paper', 'scissor'];
     const randomMove = compMove[(Math.random() * compMove.length) | 0];
 
@@ -28,16 +28,14 @@ function result(playerSelection, computerSelection) {
 }
 
 function game() {
-    for (let i = 0; i < 5; i++) {
-        const playerSelection = prompt('Let\'s play a game: rock, paper, or scissor?');
+/*     for (let i = 0; i < 5; i++) {   } */
+        const playerSelection = prompt('rock, paper, or scissor?');
         const computerSelection = computerPlay();
         
         /* output */
-        console.log('player: ' + playerSelection.toLowerCase());
-        console.log('computer: ' + computerSelection);
         console.log(result(playerSelection.toLowerCase(), computerSelection));
         console.log('player: ' + playerScore, 'computer: ' + computerScore);
-    }
+ 
 
     if (playerScore == computerScore) {
         console.log('Final result: Tied')
@@ -49,3 +47,17 @@ function game() {
         console.log('Final result: Computer wins')
     }
 }
+
+const div = document.querySelector('#container');
+
+const divIntro = document.createElement('div');
+    divIntro.textContent = 'let\'s play a game';
+    div.appendChild(divIntro);
+
+const btn1 = document.createElement('button');
+    btn1.addEventListener('click', () => game());
+    btn1.textContent = 'Shoot!'
+    div.appendChild(btn1);
+
+const divResults = document.createElement('div');
+    
