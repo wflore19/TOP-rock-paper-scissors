@@ -1,7 +1,6 @@
     let playerScore = 0;
     let computerScore = 0;
-    let scoreBoard;
-    let result;
+    let scoreBoard = '';
 
 function computerPlay() {
     const compMove = ['rock', 'paper', 'scissors'];
@@ -13,6 +12,8 @@ function computerPlay() {
 function playRound(playerChoice, computerChoice) {
     computerChoice = computerPlay();
     document.querySelector('.result').textContent = rules(playerChoice, computerChoice);
+    document.querySelector('.scoreBoard').textContent = `player: ${playerScore} - cpu: ${computerScore}`;
+    document.querySelector('.finalScore').textContent = `${scoreBoard}`
 }
 
 
@@ -36,19 +37,15 @@ function rules(playerSelection, computerSelection) {
     } else {
         return
     }
-    return `Computer: ${computerSelection} - ${result}`;
-}
-
-function game() {
-
-    if (playerScore > computerScore) {
-        scoredBoard = `Player: ${playerScore} - Computer ${computerScore}
-        Player wins`;
-    } else if (computerScore > playerScore) {
-        return `Player: ${playerScore} - Computer ${computerScore} Computer wins`;
-    } else {
-        return `rematch`;
+    
+    if (playerScore == 5 && computerScore == 5) {
+        scoreBoard = `tied`;
+    } else if (computerScore >= 5) {
+        scoreBoard = `computer wins`;
+    } else if (playerScore >= 5) {
+        scoreBoard = `player wins`;
     }
+    return `Computer: ${computerSelection} - ${result}`;
 }
     
 const rock = document.querySelector('.rock');
@@ -65,9 +62,3 @@ const scissors = document.querySelector('.scissors');
     scissors.addEventListener('click', function () {
     playRound('scissors', computerPlay());
     });
-
-const startGame = document.querySelector('.startGame');
-    startGame.addEventListener('click', function () {  game();
-    })
-    
-    document.querySelector('.scoreBoard').textContent = `player: ${playerScore} - cpu: ${computerScore}`;
