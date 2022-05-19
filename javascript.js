@@ -1,6 +1,8 @@
     let playerScore = 0;
     let computerScore = 0;
-    
+    let scoreBoard;
+    let result;
+
 function computerPlay() {
     const compMove = ['rock', 'paper', 'scissors'];
     const randomMove = compMove[(Math.random() * compMove.length) | 0];
@@ -8,63 +10,64 @@ function computerPlay() {
     return randomMove;
 }
 
-function playRound(playerSelection, computerSelection) {
-    let results = '';
-    /* playerSelection = prompt('rock, paper, or scissors?').toLowerCase(); */
-    computerSelection = computerPlay();
+function playRound(playerChoice, computerChoice) {
+    computerChoice = computerPlay();
+    document.querySelector('.result').textContent = rules(playerChoice, computerChoice);
+}
+
+
+function rules(playerSelection, computerSelection) {
     if ((playerSelection === 'rock' && computerSelection === 'scissors') ||
          (playerSelection === 'scissors' && computerSelection === 'paper') ||
          (playerSelection === 'paper' && computerSelection === 'rock')) {
         playerScore += 1;
-        console.log(`You win! ${playerSelection} beats ${computerSelection}`);
-        return results = `You win! ${playerSelection} beats ${computerSelection}`;
+        result =`You win! ${playerSelection} beats ${computerSelection}`;
     }
     else if ((playerSelection === 'rock' && computerSelection === 'paper') ||
              (playerSelection === 'scissors' && computerSelection === 'rock') ||
              (playerSelection === 'paper' && computerSelection === 'scissors')) {
         computerScore += 1;
-        console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
-        return results = `You lose! ${computerSelection} beats ${playerSelection}`;
+        result = `You lose! ${computerSelection} beats ${playerSelection}`;
     }
     else if (playerSelection == computerSelection) {
-        console.log(`Tied, no points`);
-        return results = `Tied, no points`;
+        computerScore += 1;
+        playerScore += 1;
+        result = `Tied`;
     } else {
-        console.log(`error`);
-        return `error`;
+        return
     }
+    return `Computer: ${computerSelection} - ${result}`;
 }
 
 function game() {
-    for (let i = 0; i < 5; i++) {
-        playRound();
-    }
+
     if (playerScore > computerScore) {
-        /* console.log(`Player: ${playerScore} - Computer ${computerScore}
-        Player wins`); */
-        return `Player: ${playerScore} - Computer ${computerScore}
+        scoredBoard = `Player: ${playerScore} - Computer ${computerScore}
         Player wins`;
     } else if (computerScore > playerScore) {
-        /* console.log(`Player: ${playerScore} - Computer ${computerScore}
-        Computer wins`); */
-        return `Player: ${playerScore} - Computer ${computerScore}
-        Computer wins`;
+        return `Player: ${playerScore} - Computer ${computerScore} Computer wins`;
     } else {
         return `rematch`;
     }
 }
-
+    
 const rock = document.querySelector('.rock');
-    rock.addEventListener('click', () => {
+    rock.addEventListener('click', function () {
     playRound('rock', computerPlay());
     });
 
 const paper = document.querySelector('.paper');
-    paper.addEventListener('click', () => {
+    paper.addEventListener('click', function () {
     playRound('paper', computerPlay());
     });
 
 const scissors = document.querySelector('.scissors');
-    scissors.addEventListener('click', () => {
+    scissors.addEventListener('click', function () {
     playRound('scissors', computerPlay());
     });
+
+const startGame = document.querySelector('.startGame');
+    startGame.addEventListener('click', function () {  game();
+    })
+    
+    document.querySelector('.scoreBoard').textContent = `player: ${playerScore} - cpu: ${computerScore}`;
